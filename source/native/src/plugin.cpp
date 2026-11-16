@@ -4,6 +4,7 @@
 #include "gauge_core.h"
 #include "dial_scales.h"
 #include "diagnostic_worker.h"
+#include "diagnostic_gateway.h"
 #include <arpa/inet.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -31,7 +32,6 @@ const unsigned kDataUpdateMessage = 0x40000003u;
 const unsigned kPollKey = 0x4244504cu; // BDPL, private to this app
 const unsigned kActivePollIntervalMs = 25u;
 const unsigned kIdlePollIntervalMs = 250u;
-const char kGateway[] = "169.254.21.3";
 const char kCollector[] = "/var/opt/hmi/data/ID5/Plugins/BoostDeck/boostdeck-collector-qnx";
 const unsigned kBarCount = sizeof(kDialScales)/sizeof(kDialScales[0]);
 #ifdef PERF_LAB
@@ -190,7 +190,8 @@ bool BoostDeck::gaugeVisibility(const bmw::Parcel& event) {
 void BoostDeck::startVisibleCollector() {
     if (!gauges_visible_ || collector_>0 || fd_<0 ||
         bd_mono_ms()<retry_at_) return;
-    const char *args[]={kCollector,"--host",kGateway,"--session",
+    const DiagnosticGateway gateway("/var/opt/hmi/data/ID5/Plugins/" "BoostDeck" "/gateway-ip.txt");
+    const char *args[]={kCollector,"--host",gateway.host(),"--session",
 #ifdef PERF_LAB
                        "--ethanol",
 #endif

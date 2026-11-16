@@ -1,5 +1,6 @@
 #include "plugin_factory.h"
 #include "diagnostic_worker.h"
+#include "diagnostic_gateway.h"
 #include <stdio.h>
 #include <sys/wait.h>
 
@@ -36,6 +37,12 @@ class MhdMaps : public bmw::PluginApp {
         updateModel(50u,bmw::BasicString<char>(value));
 #endif
     }
+#if defined(PERF_LAB) && !defined(BM3_ONLY) && !defined(XDRIVE_ONLY)
+    void coolingTiles(const char* reply) {
+        updateModel(63u,bmw::ImageID(!strcmp(reply,"Accepted by DME: Max Cooling off") ? 56011u : 56010u));
+        updateModel(64u,bmw::ImageID(!strcmp(reply,"Accepted by DME: Max Cooling on") ? 56013u : 56012u));
+    }
+#endif
     void reap() {
         if (child_<=0) return;
         pid_t ended=waitpid(child_,0,WNOHANG);
@@ -59,6 +66,16 @@ class MhdMaps : public bmw::PluginApp {
         reap();
         if (pipe_>=0 || child_>0) return true;
         ++generation_; // a prior result's dismissal cannot erase this request
+#ifdef PERF_LAB
+#ifdef XDRIVE_ONLY
+        resultModel_=50u;
+#else
+        resultModel_=49u+Function;
+#endif
+#endif
+#if defined(PERF_LAB) && !defined(BM3_ONLY) && !defined(XDRIVE_ONLY)
+        if (Function==3) coolingTiles("");
+#endif
         int channel[2];
         if (pipe(channel)<0) { status("Could not start map request"); return true; }
         const char argument[]={static_cast<char>('0'+Value),0};
@@ -69,14 +86,8 @@ class MhdMaps : public bmw::PluginApp {
 #else
         const char* mode=Function==1 ? "--map" : Function==2 ? "--flap" : "--cooling";
 #endif
-#ifdef PERF_LAB
-#ifdef XDRIVE_ONLY
-        resultModel_=50u;
-#else
-        resultModel_=49u+Function;
-#endif
-#endif
-        const char* args[]={kMapWorker,"--host","169.254.21.3",mode,argument,0};
+        const DiagnosticGateway gateway("/var/opt/hmi/data/ID5/Plugins/" CONTROL_PLUGIN "/gateway-ip.txt");
+        const char* args[]={kMapWorker,"--host",gateway.host(),mode,argument,0};
         if (fcntl(channel[0],F_SETFL,O_NONBLOCK)>=0 &&
             fcntl(channel[0],F_SETFD,FD_CLOEXEC)>=0 && fcntl(channel[1],F_SETFD,FD_CLOEXEC)>=0)
             child_=launch(args,channel[1]);
@@ -152,6 +163,9 @@ public:
 #endif
 #endif
         status("");
+#if defined(PERF_LAB) && !defined(BM3_ONLY) && !defined(XDRIVE_ONLY)
+        coolingTiles("");
+#endif
         if (child_>0) postPoll();
         return true;
     }
@@ -169,6 +183,9 @@ public:
                 pipe_=-1;
                 while (used_ && (result_[used_-1]=='\n' || result_[used_-1]=='\r')) --used_;
                 result_[used_]=0;
+#if defined(PERF_LAB) && !defined(BM3_ONLY) && !defined(XDRIVE_ONLY)
+                if (resultModel_==52u) coolingTiles(result_);
+#endif
                 status(used_ ? result_ : "No result received from the diagnostic worker.");
                 if (!strncmp(result_,"Confirmed: ",11)) postStatusEvent(kMapClear,3500u);
             }

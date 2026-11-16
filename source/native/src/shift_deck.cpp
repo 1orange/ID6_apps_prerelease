@@ -1,5 +1,6 @@
 #include "plugin_factory.h"
 #include "diagnostic_worker.h"
+#include "diagnostic_gateway.h"
 #include "drive_frame.h"
 #include "gauge_core.h"
 #include "shift_assets.h"
@@ -228,7 +229,8 @@ public:
         reap();
         uint64_t now=bd_mono_ms();
         if (visible_ && child_<=0 && now>=retry_at_) {
-            const char* args[]={kShiftWorker,"--host","169.254.21.3",0};
+            const DiagnosticGateway gateway("/var/opt/hmi/data/ID5/Plugins/" "ShiftDeck" "/gateway-ip.txt");
+            const char* args[]={kShiftWorker,"--host",gateway.host(),0};
             child_=launch(args,-1);
             retry_at_=now+1000;
         }
