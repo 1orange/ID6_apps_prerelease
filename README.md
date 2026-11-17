@@ -28,26 +28,17 @@ Choose **MHD+ Suite** or **Bootmod3 Suite**. [Download the dashboard package](pa
 
 ## Screenshots from iDrive
 
-### BoostDeck
-
-![BoostDeck on iDrive](images/01-boostdeck.png)
-
-### ShiftDeck
-
-![ShiftDeck on iDrive](images/02-shiftdeck.png)
-
-### MHD+ Suite
-
-![MHD+ Suite on iDrive](images/03-mhd-suite.png)
-
-### Exhaust Flap
-
-![Exhaust Flap on iDrive](images/04-exhaust-flap.png)
-
-### Max Cooling
-
-![Max Cooling on iDrive](images/05-max-cooling.png)
-
-### Engine Fault Codes
-
-![Engine Fault Codes on iDrive](images/06-engine-fault-codes.png)
+<table>
+  <tr>
+    <td><img src="images/01-boostdeck.png" alt="BoostDeck on iDrive" width="300"><br>BoostDeck</td>
+    <td><img src="images/02-shiftdeck.png" alt="ShiftDeck on iDrive" width="300"><br>ShiftDeck</td>
+  </tr>
+  <tr>
+    <td><img src="images/03-mhd-suite.png" alt="MHD+ Suite on iDrive" width="300"><br>MHD+ Suite</td>
+    <td><img src="images/04-exhaust-flap.png" alt="Exhaust Flap on iDrive" width="300"><br>Exhaust Flap</td>
+  </tr>
+  <tr>
+    <td><img src="images/05-max-cooling.png" alt="Max Cooling on iDrive" width="300"><br>Max Cooling</td>
+    <td><img src="images/06-engine-fault-codes.png" alt="Engine Fault Codes on iDrive" width="300"><br>Engine Fault Codes</td>
+  </tr>
+</table>
