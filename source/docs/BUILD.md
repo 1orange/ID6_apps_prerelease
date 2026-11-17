@@ -28,7 +28,7 @@ python3 -m pip install Pillow
 sh native/build.sh
 ```
 
-The script compiles the native libraries, diagnostic workers, Exhaust Flap launcher, and ARM file-operations helper. Diagnostic workers built from project source include the [MOST fallback](MOST.md). They open the DSI library at run time. The packaged Exhaust Flap plugin and its HSFZ worker come from PR #29. The launcher reads gateway-ip.txt and invokes that worker. When preparing the dashboard ZIP, use native/tools/namespace_exhaust_flap.py with pyelftools on the original PR library to keep its private class symbols distinct from MHD+ Suite. The XML and manifests in `native/plugin` are the current layouts. Use the matching image archives from the packaged release.
+The script builds the native libraries and diagnostic workers. The dashboard diagnostic workers use the [MOST fallback](MOST.md), which loads the DSI library at runtime. The MHD+ Suite package also includes the HSFZ Exhaust Flap worker from PR #29 as `MhdMaps/exhaust-flap-worker-qnx`. Use `native/tools/merge_exhaust_flap_page.py` to assemble the submenu from the original flap artwork and the MHD+ Suite image archive. The packaged XML and matching image archives must be deployed together.
 
 ## New firmware
 

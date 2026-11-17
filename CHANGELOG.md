@@ -8,4 +8,6 @@
 - **Engine Fault Codes** reads engine codes and shows their descriptions when available. It can read codes even when the DME refuses to clear them.
 - **HUD Gauges** adds a curved windshield tachometer and numeric boost in PSI, with a persistent on/off checkbox. The packaged build targets the reference 340i with its factory HUD.
 - **Dashboard diagnostics** uses the MOST fallback from PR #9 in the packaged workers. A per-app gateway address can be set in gateway-ip.txt.
-- **Exhaust Flap** is included in the dashboard ZIP. Its launcher supports the dashboard gateway-ip.txt setting.
+- **Exhaust Flap** moves under MHD+ Suite → Options, alongside Max Cooling.
+- **Desktop installers** add a read-only compatibility check and recognize matching N18092I and P18362I framework captures.
+- **xDrive Control** distinguishes missing DSC replies, negative replies, and detected DSC indices outside the write allowlist.

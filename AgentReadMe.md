@@ -2,7 +2,7 @@
 
 ## Select the apps
 
-Ask the owner for their choice of **MHD+ Suite** or **Bootmod3 Suite**, and whether they want **xDrive Control** and **HUD Gauges**. Install only the selected tuning menu. Install xDrive Control only when selected. BoostDeck, ShiftDeck, and Engine Fault Codes are independent apps. Ask whether the owner wants the Exhaust Flap menu.
+Ask the owner for their choice of **MHD+ Suite** or **Bootmod3 Suite**, and whether they want **xDrive Control** and **HUD Gauges**. Install only the selected tuning menu. Install xDrive Control only when selected. BoostDeck, ShiftDeck, and Engine Fault Codes are independent apps.
 
 ## Identify the car
 
@@ -12,7 +12,7 @@ Ask the owner for their choice of **MHD+ Suite** or **Bootmod3 Suite**, and whet
 
 On some units SSH lands on the Jacinto processor (`uname -a` reports `hu-jacinto`), not the HMI OMAP, and `/opt/hmi/ID5/lib` is empty on that node. The HMI files are then reachable read-only over Qnet under `/net/hu-omap/fs/sda0/...`, and OMAP commands run with `on -f hu-omap`. The capture utility detects this and reads the right paths automatically. See [Split-node units](source/docs/PORTING.md#split-node-units).
 
-The packaged build is for **NBTevo_N18032I**, **1280 × 480**, with this framework pair.
+The reference dashboard build uses **NBTevo_N18032I** at **1280 × 480**. The desktop installers check the exact firmware and framework pair before staging. See [Dashboard compatibility](source/docs/COMPATIBILITY.md) for the captured profiles and their validation.
 
 | File | SHA-256 |
 | --- | --- |
@@ -25,7 +25,7 @@ If you need the toolchain for a native build, the [QNX SDP 6.5 archive](https://
 
 ## Stage and verify
 
-Download and extract the selected packages from [packages/](packages/). The dashboard ZIP contains BoostDeck, ShiftDeck, EngineCodes, MhdMaps, and ExhaustFlap. Include ExhaustFlap only when selected. The Exhaust Flap worker uses HSFZ and reads the same gateway-ip.txt setting through its launcher. Include MhdMaps only for the MHD choice. Bootmod3Suite and XDriveControl are separate ZIPs. Read their package notes for module and tune constraints. **The engine must be off before switching between AWD and RWD in either direction.** Install neither when the owner declines them.
+Download and extract the selected packages from [packages/](packages/). The dashboard ZIP contains BoostDeck, ShiftDeck, EngineCodes, and MhdMaps. Exhaust Flap is under MHD+ Suite → Options and uses the same gateway-ip.txt setting. When updating MhdMaps, move its earlier standalone ExhaustFlap plugin folder to the backup outside Plugins. Include MhdMaps only for the MHD choice. Bootmod3Suite and XDriveControl are separate ZIPs. Read their package notes for module and tune constraints. **The engine must be off before switching between AWD and RWD in either direction.** Install neither when the owner declines them.
 
 Inventory /var/opt/hmi/data/ID5/Plugins for conflicting names and connector IDs. Back up any prior version being replaced to a separate directory outside Plugins. Stage complete app folders outside Plugins, upload over confirmed SSH, set the workers executable, and compare each readback with its local file before moving the folders into Plugins. Verify the final paths and bytes, and tell the owner where backups were saved. If anything fails, restore the previous folders before restarting. Do not add a second copy of an app.
 
