@@ -28,28 +28,26 @@ Choose **MHD+ Suite** or **Bootmod3 Suite**. [Download the dashboard package](pa
 
 ## Screenshots from iDrive
 
-<table>
-  <tr>
-    <td><img src="images/current-boostdeck.jpg" alt="BoostDeck with the Active Ethanol bar" width="300"><br>BoostDeck</td>
-    <td><img src="images/current-shiftdeck.jpg" alt="ShiftDeck with RPM and speed" width="300"><br>ShiftDeck</td>
-  </tr>
-  <tr>
-    <td><img src="images/current-mhd-maps.jpg" alt="Four MHD+ map tiles" width="300"><br>MHD+ Suite</td>
-    <td><img src="images/current-exhaust-flap.jpg" alt="Exhaust flap controls" width="300"><br>Exhaust Flap</td>
-  </tr>
-  <tr>
-    <td><img src="images/current-max-cooling.jpg" alt="Max Cooling menu" width="300"><br>Max Cooling</td>
-    <td><img src="images/current-engine-fault-codes.jpg" alt="Engine Fault Codes menu" width="300"><br>Engine Fault Codes</td>
-  </tr>
-</table>
+### BoostDeck
 
-### HUD Gauges
+![BoostDeck on iDrive](images/01-boostdeck.png)
 
-These photos show earlier versions of the windshield overlay.
+### ShiftDeck
 
-<table>
-  <tr>
-    <td><img src="images/03_hud_white.jpg" alt="Early HUD Gauges prototype in white" width="300"></td>
-    <td><img src="images/04_hud_orange.jpg" alt="Early HUD Gauges prototype in orange" width="300"></td>
-  </tr>
-</table>
+![ShiftDeck on iDrive](images/02-shiftdeck.png)
+
+### MHD+ Suite
+
+![MHD+ Suite on iDrive](images/03-mhd-suite.png)
+
+### Exhaust Flap
+
+![Exhaust Flap on iDrive](images/04-exhaust-flap.png)
+
+### Max Cooling
+
+![Max Cooling on iDrive](images/05-max-cooling.png)
+
+### Engine Fault Codes
+
+![Engine Fault Codes on iDrive](images/06-engine-fault-codes.png)
